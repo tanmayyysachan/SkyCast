@@ -16,6 +16,14 @@ SkyCast is a beautiful and responsive weather forecast app that allows users to 
 
 ---
 
+## 📦 Download APK
+
+👉 [Click here to download the latest APK](https://github.com/tanmayyysachan/SkyCast/releases/latest/download/app-release.apk)
+
+> _Install on your Android device to try it out._
+
+---
+
 ## 📸 Screenshots
 
 > _You can add your app screenshots here_
@@ -42,56 +50,3 @@ SkyCast is a beautiful and responsive weather forecast app that allows users to 
 ```bash
 git clone https://github.com/tanmayyysachan/SkyCast.git
 cd SkyCast
-```
-
-### Configure the API Key
-
-1. Open the file `lib/constants.dart`
-2. Replace the placeholder with your actual API key:
-```dart
-const String appWeatherAPIKey = "YOUR_API_KEY_HERE";
-```
-
-### Run the App
-
-```bash
-flutter pub get
-flutter run
-```
-
----
-
-## 🧩 Folder Structure
-
-```
-lib/
-├── additional_info_item.dart
-├── constants.dart
-├── hourly_forecast_item.dart
-└── weather_screen.dart
-```
-
----
-
-## 💡 Future Enhancements
-
-- 📍 Auto-location-based weather data
-- 🌙 Dark/light theme toggle
-- 📲 Weather notifications
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to open an issue or submit a pull request for improvements.
-
----
-
-## 📬 Contact
-
-For questions or collaboration, reach out:  
-**GitHub**: [@tanmayyysachan](https://github.com/tanmayyysachan)
-
----
-
-Let me know if you want me to generate a `LICENSE` file for you too, or if you want badges for GitHub stars, forks, etc.
