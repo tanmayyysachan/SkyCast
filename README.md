@@ -27,7 +27,7 @@ SkyCast is a beautiful and responsive weather forecast app that allows users to 
 ## 🎥 Demo Video
 
 Check out a quick demo of SkyCast in action:  
-📹 [Watch Demo](https://github.com/tanmayyysachan/SkyCast/demo.mp4)
+📹 [Watch Demo](https://github.com/tanmayyysachan/SkyCast/releases/download/v1.0.0/demo.mp4)
 
 > _This video gives a visual overview of app features and functionality._
 
