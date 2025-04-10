@@ -18,15 +18,18 @@ SkyCast is a beautiful and responsive weather forecast app that allows users to 
 
 ## 📦 Download APK
 
-👉 app-release.apk
+👉 [Download Latest APK](https://github.com/tanmayyysachan/SkyCast/releases/latest/download/app-release.apk)
 
 > _Install on your Android device to try it out._
 
 ---
 
-## 📸 Screenshots
+## 🎥 Demo Video
 
-> _You can add your app screenshots here_
+Check out a quick demo of SkyCast in action:  
+📹 [Watch Demo](https://github.com/tanmayyysachan/SkyCast/assets/demo.mp4)
+
+> _This video gives a visual overview of app features and functionality._
 
 ---
 
@@ -35,18 +38,3 @@ SkyCast is a beautiful and responsive weather forecast app that allows users to 
 - [Flutter](https://flutter.dev) – UI toolkit for building natively compiled apps  
 - [Dart](https://dart.dev) – Language used to develop Flutter apps  
 - [OpenWeather API](https://openweathermap.org/api) – Provides real-time weather data
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Flutter SDK installed on your machine  
-- An OpenWeather API key (Get it [here](https://openweathermap.org/api))
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/tanmayyysachan/SkyCast.git
-cd SkyCast
