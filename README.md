@@ -18,7 +18,7 @@ SkyCast is a beautiful and responsive weather forecast app that allows users to 
 
 ## 📦 Download APK
 
-👉 [Click here to download the latest APK](https://github.com/tanmayyysachan/SkyCast/releases/latest/download/app-release.apk)
+👉 app-release.apk
 
 > _Install on your Android device to try it out._
 
