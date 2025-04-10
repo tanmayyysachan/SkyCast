@@ -25,7 +25,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
     weatherData = getCurrentWeather(selectedCity);
   }
 
-  // Fetch weather data from API
   Future<Map<String, dynamic>> getCurrentWeather(String city) async {
     try {
       final res = await http.get(
@@ -45,7 +44,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
     }
   }
 
-  // Updates the selected city and refreshes the weather data
   void updateCity(String newCity) {
     setState(() {
       selectedCity = newCity;
@@ -93,15 +91,14 @@ class _WeatherScreenState extends State<WeatherScreen> {
           }
 
           final data = snapshot.data!;
-
           final currentWeather = data["list"][0];
-          final currentTemp = (currentWeather["main"]["temp"] - 273.15).toStringAsFixed(1); 
+          final currentTemp = (currentWeather["main"]["temp"] - 273.15).toStringAsFixed(1);
           final currentSky = (currentWeather["weather"][0]["main"]).toString();
           final currentPressure = (currentWeather["main"]["pressure"]).toString();
           final currentHumidity = (currentWeather["main"]["humidity"]).toString();
           final currentWindSpeed = (currentWeather["wind"]["speed"]).toString();
 
-          return Padding(
+          return SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,9 +107,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   selectedCity,
                   style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
-
                 const SizedBox(height: 20),
-
                 TextField(
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
@@ -120,8 +115,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     hintStyle: const TextStyle(color: Colors.white),
                     prefixIcon: const Icon(Icons.search, color: Colors.white),
                     filled: true,
-                    fillColor: Colors.grey[900], 
-                    border: InputBorder.none, 
+                    fillColor: Colors.grey[900],
+                    border: InputBorder.none,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.transparent),
@@ -137,9 +132,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     }
                   },
                 ),
-
                 const SizedBox(height: 20),
-
                 SizedBox(
                   width: double.infinity,
                   child: Card(
@@ -164,7 +157,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 ),
                               ),
                               const SizedBox(height: 10),
-
                               Icon(
                                 switch (currentSky) {
                                   'Cloud' => Icons.cloud_sharp,
@@ -178,11 +170,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 size: 64,
                                 color: Colors.white,
                               ),
-
                               const SizedBox(height: 10),
-
-                              Text(currentSky,
-                                  style: const TextStyle(fontSize: 22, color: Colors.white)),
+                              Text(currentSky, style: const TextStyle(fontSize: 22, color: Colors.white)),
                             ],
                           ),
                         ),
@@ -190,9 +179,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 20),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -213,62 +200,64 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 20),
-
-                // Hourly Forecast Title
                 const Text(
                   "Hourly Forecast",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
-
                 const SizedBox(height: 10),
+                Builder(
+                  builder: (context) {
+                    final today = DateTime.now();
+                    final todayHourly = data["list"].where((entry) {
+                      final date = DateTime.parse(entry["dt_txt"]);
+                      return date.year == today.year &&
+                          date.month == today.month &&
+                          date.day == today.day;
+                    }).toList();
 
-                SizedBox(
-                  height: 125,
-                  child: ListView.builder(
-                    itemCount: min(38, data["list"].length - 1),
-                    itemBuilder: (context, index) {
-                      final hourlyForecast = data['list'][index + 1];
-                      final hourlyTemp = (hourlyForecast["main"]["temp"] - 273.15).toStringAsFixed(1);
-                      final time = DateTime.parse(hourlyForecast["dt_txt"]);
+                    return SizedBox(
+                      height: 150,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: todayHourly.length,
+                        itemBuilder: (context, index) {
+                          final hourlyForecast = todayHourly[index];
+                          final hourlyTemp = (hourlyForecast["main"]["temp"] - 273.15).toStringAsFixed(1);
+                          final time = DateTime.parse(hourlyForecast["dt_txt"]);
 
-                       
-                        return HourlyForecastItem(
-                          time: DateFormat('MMM dd, hh:mm a').format(time),
-                          temperature: "$hourlyTemp°C",
-                          icon: Icons.cloud,
-                        );
-                      }
-                  ),
+                          return HourlyForecastItem(
+                            time: DateFormat('MMM dd, hh:mm a').format(time),
+                            temperature: "$hourlyTemp°C",
+                            icon: Icons.cloud,
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
-
                 const SizedBox(height: 20),
-
                 const Text(
                   "7-Day Forecast",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
-
                 const SizedBox(height: 10),
+                ListView.builder(
+                  itemCount: min(38, data["list"].length ~/ 8),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final dailyData = data["list"][index * 8];
+                    final dayTemp = (dailyData["main"]["temp"] - 273.15).toStringAsFixed(1);
+                    final date = DateTime.parse(dailyData["dt_txt"]);
 
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: min(38, data["list"].length ~/ 8),
-                    itemBuilder: (context, index) {
-                      final dailyData = data["list"][index * 8];
-                      final dayTemp = (dailyData["main"]["temp"] - 273.15).toStringAsFixed(1);
-                      final date = DateTime.parse(dailyData["dt_txt"]);
-
-                      return ListTile(
-                        leading: Icon(Icons.calendar_today, color: Colors.white),
-                        title: Text(DateFormat('EEEE').format(date),
-                            style: const TextStyle(color: Colors.white)),
-                        trailing: Text("$dayTemp°C",
-                            style: const TextStyle(color: Colors.white)),
-                      );
-                    },
-                  ),
+                    return ListTile(
+                      leading: const Icon(Icons.calendar_today, color: Colors.white),
+                      title: Text(DateFormat('EEEE').format(date),
+                          style: const TextStyle(color: Colors.white)),
+                      trailing: Text("$dayTemp°C", style: const TextStyle(color: Colors.white)),
+                    );
+                  },
                 ),
               ],
             ),
